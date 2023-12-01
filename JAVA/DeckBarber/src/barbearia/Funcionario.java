@@ -4,10 +4,11 @@ public class Funcionario extends Pessoa{
 
 	private String cargo;
 	private Double remuneracao;
-	
+	private int idFuncionario;
 
-	public Funcionario(String nome, String cpf, String dataNascimento, String email, String telefone, String endereco) {
+	public Funcionario(String nome, String cpf, String dataNascimento, String email, String telefone, String endereco,int idFuncionario) {
 		super(nome, cpf, dataNascimento, email, telefone, endereco);
+		this.idFuncionario = idFuncionario;
 	}
 
 
@@ -30,5 +31,19 @@ public class Funcionario extends Pessoa{
 		this.remuneracao = remuneracao;
 	}
 	
+	public void atenderCliente(){
+		System.out.println("Atendendo Cliente");
+	}
+
+
+	public int getIdFuncionario() {
+		return idFuncionario;
+	}
+
+
+	public void setIdFuncionario(int idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
 	
 }

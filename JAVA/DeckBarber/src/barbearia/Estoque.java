@@ -25,5 +25,4 @@ public class Estoque {
 		this.produto = produto;
 	}	
 	
-	
 }

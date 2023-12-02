@@ -101,17 +101,23 @@ public class Atendimento {
 	public void iniciarAtendimento(){
 		Scanner sc = new Scanner(System.in);
 
-		Produto produto = new Produto(150., desconto, "Minoxidil");
+		Produto minoxidil = new Produto(150., desconto, "Minoxidil");
 
 		Servico servico = new Servico("Corte simples", 25.0);
 
-		Cliente marcos = new Cliente("Marcos", "48", "12/12/12", "marcos@marcos.com", "123", "rua joaquim",1,3);
+		Cliente marcos = new Cliente("Marcos", "48", "12/12/12", "marcos@marcos.com", "123", "rua joaquim",1,3,0.0);
 
-		Cliente nikson = new Cliente("Nikson", "123", "2004", "barbera@barbera.com", "24", "rua nanami",2,9);
+		Cliente nikson = new Cliente("Nikson", "123", "2004", "barbera@barbera.com", "24", "rua nanami",2,9,0.0);
 		
-		Funcionario joao = new Funcionario("João", "123", "24", "joao@joao.com", "123", "rua joaquim",2);
-
-		Double resultado;
+		Funcionario joao = new Funcionario("João", "123", "24", "joao@joao.com", "123", "rua joaquim",2,135.0);
+		
+		Estoque estoqueMinoxidil = new Estoque(5, produto);
+		Double saldobarb1 = 0.0;
+		Double saldobarb2 = 0.0;
+		Double saldobarb3 = 0.0;
+		double saldoGerente = 0.0;
+		Double conta = cliente.getConta();
+		Double valorProdutoSeparado = 0.0;
 
 		System.out.println("\n\n\n\n\n\nbem vindo ao sistema da sua barbearia favorita\n\nVocê já possui cadastro em nosso sistema?\nCaso sim, digite seu codigo unico e instransferivel\nCaso não digite seu novo código.(lembre-se que este código será para sempre seu.)\n\n\nLEMBRANDO QUE O SEU 10 SERVICO É POR NOSSA CONTA");
 		cliente.setIdCliente(sc.nextInt());
@@ -150,61 +156,163 @@ public class Atendimento {
         int escolhaservico=sc.nextInt();
 
                 if(escolhaservico==1){
-                    resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+                    conta= cliente.getConta() + servico.getValorDoServico();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else if(escolhaservico==2){
-                    resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+                    conta= 35 + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else if(escolhaservico==3){
-                  resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+                  conta= 25 + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else if(escolhaservico==4){
-                   resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+                   conta= 35 + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }   
                 else if(escolhaservico==5){
-              		resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+              		conta= servico.getValorDoServico() + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }   
                 else if(escolhaservico==6){
-           			resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+           			conta= servico.getValorDoServico() + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else if(escolhaservico==7){
-					resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+					conta= servico.getValorDoServico() + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else if(escolhaservico==8){
-              		resultado= servico.getValorDoServico() + produto.getValorDeVenda();
+              		conta= servico.getValorDoServico() + produto.getValorDeVenda();
                     System.out.println("bom serviço!");
                     cliente.setCont_cortes(cliente.getCont_cortes()+1);
                     funcionario.setRemuneracao(servico.getValorDoServico());
                 }
                 else{
-                    resultado=0.0;
+                    conta=0.0;
 					cliente.getCont_cortes();
                     System.out.println("vamos aos produtos");
 
 
                 }
 				
+				System.out.println("\n\n\n\n\n\n\n\n\n\nvocê deseja conhecer e adquirir produtos em nossa loja?\nDIGITE 1 PARA SIM\nDIGITE 2 PARA NÃO");
+            int conhecer_produtos=sc.nextInt();
+            while (conhecer_produtos!=2) {
+                System.out.println("digite o codigo de um de nossos produtos para adicionar ao carrrinho:\nMinoxidil:R$35 COD-12\nCreme de cabelo: R$50 COD-46");
+                int cod_produto=sc.nextInt();
+                if(cod_produto==12){
+                    conta=conta+35;
+                    estoqueMinoxidil.setQuantidade(estoqueMinoxidil.getQuantidade());
+					estoqueMinoxidil.setQuantidade(estoqueMinoxidil.getQuantidade()-1);
+					System.out.println("PEDIDO REALIZADO!!!\nVocê deseja continuar a conhecer e adquirir produtos em nossa loja?\nDIGITE 1 PARA SIM\nDIGITE 2 PARA NÃO");
+                    conhecer_produtos=sc.nextInt();
+            }
+                else if(cod_produto==46){
+                    // conta=conta+50;
+                    // count_prod2++;
+                    // quantidade_produto2=quantidade_produto2-1;
+                    // System.out.println("PEDIDO REALIZADO!!!\nVocê deseja continuar a conhecer e adquirir produtos em nossa loja?\nDIGITE 1 PARA SIM\nDIGITE 2 PARA NÃO");
+                    // conhecer_produtos=sc.nextInt();
+					System.out.println("Item 46");
+            }
+                else{
+                    System.out.println("CODIGO INVALIDO!!!\nVocê deseja continuar a conhecer e adquirir produtos em nossa loja?\nDIGITE 1 PARA SIM\nDIGITE 2 PARA NÃO");
+                    conhecer_produtos=sc.nextInt();
+            }}
+			valorProdutoSeparado= funcionario.getRemuneracao() - cliente.getCont_cortes();
 
+            // int estoqueCreme=quantidade_produto2-count_prod2;
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
+
+            if(conta==0){
+                System.out.println("seu atendimento foi encerrado sem compras, lhe aguardamos numa proxima visita, "+cliente.getNome()+"!");
+            }
+            else{
+				if(conta<10){
+                System.out.println("Olá "+" espero que esteja satisfeito com nosso servico :)\nA conta pelo seu corte geral pelo seu serviço é de: "+conta+"\n\n");
+                    if(escolhabarb==1){
+                       saldobarb1= saldobarb1+(cliente.getCont_cortes()/2)+(valorProdutoSeparado*5/100);
+                        System.out.println(joao.getNome()+" este corte lhe rendeu R$"+cliente.getCont_cortes()/2+" e seu valor diário geral é de: R$"+saldobarb1+"\n\n\n\n");
+
+            double valorbarbeiros=saldobarb1+saldobarb2+saldobarb3;
+            double saldoSemDescontos=saldoGerente+cliente.getCont_cortes()+valorProdutoSeparado+saldobarb1+saldobarb2+saldobarb3;
+            Double custoProdutos=valorProdutoSeparado-(estoqueMinoxidil.getQuantidade()*produto.getValorDeCusto())- (estoqueMinoxidil.getQuantidade()*50)-(valorProdutoSeparado*5/100);
+            double descontos=valorbarbeiros+custoProdutos;
+
+            saldoGerente=saldoSemDescontos-descontos;
+
+            System.out.println("GERENTE:"+
+            "\nValor em caixa sem os descontos de custo: R$"+saldoSemDescontos+
+            "\na comissão dos barbeiros está nos valores de: Jorge-"+saldobarb1+" João-"+saldobarb2+" Paulo-"+saldobarb3+
+            "\nO valor de descontos de custo de produto+comissao de barbeiros é de R$"+descontos+
+            "\nseu saldo geral após este corte é de: R$"+saldoGerente);
+            
+                    }
+            //         else if(escolhabarb==2){
+            //             saldobarb2=saldobarb2+(contacorte/2)+(valorProdutoSeparado*5/100);
+            //             System.out.println(barbeiro2+" este corte lhe rendeu R$"+contacorte/2+" e seu valor diário geral é de: R$"+saldobarb2+"\n\n\n\n");
+
+            // double valorbarbeiros=saldobarb1+saldobarb2+saldobarb3;
+            // double saldoSemDescontos=saldoGerente+contacorte+valorProdutoSeparado+saldobarb1+saldobarb2+saldobarb3;
+            // Double custoProdutos=valorProdutoSeparado-(count_prod1*valorCustoProd1)-(count_prod2*valorCustoProd2)-(valorProdutoSeparado*5/100);
+            // double descontos=valorbarbeiros+custoProdutos;
+
+            // saldoGerente=saldoSemDescontos-descontos;
+
+            // System.out.println("GERENTE:"+
+            // "\nValor em caixa sem os descontos de custo: R$"+saldoSemDescontos+
+            // "\na comissão dos barbeiros está nos valores de: Jorge-"+saldobarb1+" João-"+saldobarb2+" Paulo-"+saldobarb3+
+            // "\nO valor de descontos de custo de produto+comissao de barbeiros é de R$"+descontos+
+            // "\nseu saldo geral após este corte é de: R$"+saldoGerente);
+            
+                        
+            //         }
+            //         else if(escolhabarb==3){
+            //             saldobarb3=saldobarb3+(contacorte/2)+(valorProdutoSeparado*5/100);
+            //             System.out.println(barbeiro3+" este corte lhe rendeu R$"+contacorte/2+" e seu valor diário geral é de: R$"+saldobarb3+"\n\n\n\n");
+
+            // double valorbarbeiros=saldobarb1+saldobarb2+saldobarb3;
+            // double saldoSemDescontos=saldoGerente+contacorte+valorProdutoSeparado+saldobarb1+saldobarb2+saldobarb3;
+            // Double custoProdutos=valorProdutoSeparado-(count_prod1*valorCustoProd1)-(count_prod2*valorCustoProd2)-(valorProdutoSeparado*5/100);
+            // double descontos=valorbarbeiros+custoProdutos;
+
+            // saldoGerente=saldoSemDescontos-descontos;
+
+            // System.out.println("GERENTE:"+
+            // "\nValor em caixa sem os descontos de custo: R$"+saldoSemDescontos+
+            // "\na comissão dos barbeiros está nos valores de: Jorge-"+saldobarb1+" João-"+saldobarb2+" Paulo-"+saldobarb3+
+            // "\nO valor de descontos de custo de produto+comissao de barbeiros é de R$"+descontos+
+            // "\nseu saldo geral após este corte é de: R$"+saldoGerente);
+            
+                        
+            //         }
+
+            // }
+            else{
+                       
+
+            System.out.println("seu estoque de Minoxidil contem: "+estoqueMinoxidil.getQuantidade()+" unidades");
+            // System.out.println("seu estoque de Creme contem: "+estoqueCreme+" unidades");
+            }
+
+			
 }
+	}
+	}
 }

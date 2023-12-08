@@ -14,7 +14,7 @@ public class Main {
 
 		Produto minoxidil = new Produto(1.0, 2.0, "minoxidil");
 
-		Estoque estoque = new Estoque(5, minoxidil);
+		Estoque estoque = new Estoque(5, minoxidil,0);
 
 		Cliente marcos = new Cliente("Marcos", "48", "12/12/12", "marcos@marcos.com", "123", "rua joaquim",1,3,0.0);
 
